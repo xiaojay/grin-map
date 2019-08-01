@@ -5,10 +5,10 @@ authors = ["Max Lavrenov <max.lavrenov@optiopay.com>"]
 edition = "2018"
 
 [dependencies]
-grin_p2p = { path = "../grin/p2p" }
-grin_core = { path = "../grin/core"}
-grin_util = { path = "../grin/util"}
-grin_chain = { path = "../grin/chain/"}
+grin_p2p = { git = "https://github.com/mimblewimble/grin", tag = "v2.0.0" }
+grin_core = { git = "https://github.com/mimblewimble/grin", tag = "v2.0.0" }
+grin_util = { git = "https://github.com/mimblewimble/grin", tag = "v2.0.0" }
+grin_chain = { git = "https://github.com/mimblewimble/grin", tag = "v2.0.0" }
 env_logger = "0.6.2"
 log = "0.4.7"
 chrono = "0.4.7"
