@@ -22,6 +22,10 @@ use crossbeam_queue::SegQueue;
 use crossbeam_utils::sync::ShardedLock;
 use structopt::StructOpt;
 
+#[macro_use] extern crate log;
+extern crate simplelog;
+use simplelog::*;
+
 type Storage = HashMap<PeerAddr, Option<Vec<PeerAddr>>>;
 
 #[derive(StructOpt, Debug)]
@@ -41,8 +45,15 @@ const NTHREADS: u8 = 100;
 // 109.74.202.16  grinseed.yeastplume.org
 
 fn main() {
-    env_logger::init();
-    info!("Hello, world!");
+    CombinedLogger::init(
+        vec![
+            TermLogger::new(LevelFilter::Debug, Config::default(), TerminalMode::Mixed).unwrap(),
+            WriteLogger::new(LevelFilter::Debug, Config::default(), File::create("grin-map.log").unwrap()),
+        ]
+    ).unwrap();
+
+
+	info!("Hello, world!");
 
     let args = Args::from_args();
 
@@ -186,6 +197,8 @@ fn connect(
         adapter.clone(),
     )
     .map_err(|e| format!("{:?}", e))?;
+
+    info!("{} User_agent: {}; Version: {}",  peer_addr, &peer.info.user_agent, &&peer.info.version);
 
     let peer = Arc::new(peer);
 
