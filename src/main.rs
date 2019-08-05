@@ -198,7 +198,7 @@ fn connect(
     )
     .map_err(|e| format!("{:?}", e))?;
 
-    info!("{} User_agent: {}; Version: {}",  peer_addr, &peer.info.user_agent, &&peer.info.version);
+    info!("{} User_agent: {}; Version: {}",  &peer_addr, &peer.info.user_agent, &peer.info.version);
 
     let peer = Arc::new(peer);
 
