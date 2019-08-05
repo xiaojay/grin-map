@@ -16,6 +16,9 @@ use std::collections::{HashMap, VecDeque};
 use std::fs::File;
 use std::io::{Error, Write};
 
+use chrono::prelude::*;
+extern crate chrono;
+
 mod adapter;
 use crate::adapter::FakeAdapter;
 use crossbeam_queue::SegQueue;
@@ -210,7 +213,9 @@ fn connect(
 }
 
 fn store(hm: &Storage) -> Result<(), Error> {
-    let mut f = File::create("./result.csv")?;
+    let now = Local::now();
+    let fn_ = format!("{}.csv", now.format("%F-%H"));
+    let mut f = File::create(fn_)?;
     for (k, v) in hm {
         write!(f, "{},[", k)?;
         if v.is_some() {

@@ -17,4 +17,3 @@ crossbeam-queue = "0.1.2"
 crossbeam-utils = "0.6.5"
 structopt = "0.2.18"
 simplelog = "^0.6.0"
-
