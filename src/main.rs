@@ -186,8 +186,8 @@ fn connect(
     let stream = TcpStream::connect_timeout(&peer_addr.0, Duration::from_secs(10))
         .map_err(|e| format!("{}", e))?;
 
-    //let adapter = Arc::new(FakeAdapter::new());
-    let adapter = Arc::new(p2p::DummyAdapter {});
+    let adapter = Arc::new(FakeAdapter::new());
+    //let adapter = Arc::new(p2p::DummyAdapter {});
 
     let peer = Peer::connect(
         stream,
