@@ -2,7 +2,7 @@ use env_logger;
 use grin_core::core::hash::Hashed;
 use grin_core::pow::Difficulty;
 use grin_p2p::handshake::Handshake;
-use std::net::{SocketAddr, TcpStream};
+use std::net::{SocketAddr, TcpStream, Shutdown};
 use std::sync::{Arc, Mutex, RwLock};
 use std::thread;
 use std::time::Duration;
@@ -212,7 +212,10 @@ fn connect(
     peer.send_peer_request(Capabilities::PEER_LIST)
         .map_err(|e| format!("{:?}", e))?;
 
-    adapter.get_peers().map_err(|e| format!("{:?}", e))
+    let r = adapter.get_peers().map_err(|e| format!("{:?}", e));
+    thread::sleep(Duration::from_secs(2));
+    peer.stop();
+    r
 }
 
 fn store(hm: &Storage) -> Result<(), Error> {
