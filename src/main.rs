@@ -112,7 +112,7 @@ fn main() {
                 "Too many items in queue. Start new thread (was {})",
                 Arc::strong_count(&queue)
             );
-            if Arc::strong_count(&queue) < 100 {
+            if Arc::strong_count(&queue) < 250 {
                 count += 1;
                 worker(
                     handshake.clone(),
