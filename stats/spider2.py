@@ -34,7 +34,7 @@ for i, u in enumerate(urls):
         print u
         print 'failed to parse'
         continue
-    print date[i], total_count, public_count 
+    #print date[i], total_count, public_count 
     t = days[i]
     if t == y:
         s1 += int(total_count)
@@ -46,4 +46,6 @@ for i, u in enumerate(urls):
         s2 = int(public_count)
         count = 1
         y = t    
-    time.sleep(0.5)
+    time.sleep(0.25)
+
+print y, int(s1*1.0/count), int(s2*1.0/count)

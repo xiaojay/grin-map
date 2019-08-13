@@ -67,17 +67,18 @@ fn main() {
     let mut peer_addr: PeerAddr;
     let mut handshake: Arc<Handshake>;
 
-    if args.floonet {
-        set_mining_mode(ChainTypes::Floonet);
-        peer_addr = PeerAddr(SocketAddr::new("35.157.247.209".parse().unwrap(), 13414)); // zion
-        handshake = Arc::new(Handshake::new(genesis_floo().hash(), cfg.clone()));
-    } else {
-        set_mining_mode(ChainTypes::Mainnet);
-        peer_addr = PeerAddr(SocketAddr::new("109.74.202.16".parse().unwrap(), 3414)); // mainnet
+    let seeds = ["5.9.152.75", 
+                 "139.162.168.18",
+                 "94.130.229.193",
+                 "159.69.37.136",
+                 "109.74.202.16"
+    ];
+    set_mining_mode(ChainTypes::Mainnet);
+    //peer_addr = PeerAddr(SocketAddr::new("109.74.202.16".parse().unwrap(), 3414)); // mainnet
 
-        //peer_addr = PeerAddr(SocketAddr::new("127.0.0.1".parse().unwrap(), 3414)); // mainnet
-        handshake = Arc::new(Handshake::new(genesis_main().hash(), cfg.clone()));
-    }
+    //peer_addr = PeerAddr(SocketAddr::new("127.0.0.1".parse().unwrap(), 3414)); // mainnet
+    handshake = Arc::new(Handshake::new(genesis_main().hash(), cfg.clone()));
+    
 
     let queue = Arc::new(SegQueue::new());
     let hm: HashMap<PeerAddr, Option<Vec<PeerAddr>>> = HashMap::new();
@@ -87,8 +88,10 @@ fn main() {
 
     let mut count = 1;
 
-    queue.push(peer_addr);
-
+    for ip in &seeds{
+        peer_addr = PeerAddr(SocketAddr::new(ip.parse().unwrap(), 3414)); // mainnet
+        queue.push(peer_addr);
+    }
     //   let mut threads = vec![];
 
     let t = worker(

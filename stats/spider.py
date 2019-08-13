@@ -3,7 +3,7 @@ import requests, time, re
 urls = []
 date = []
 days = []
-for i in range(1, 6):
+for i in range(1, 7):
     for j in range(2, 26, 4):
         i_ = str(i)
         if i < 10:
@@ -30,7 +30,7 @@ for i, u in enumerate(urls):
     
     total_count = re.findall('Total nodes:\s*(\d+)\s*', c)[0]
     public_count = re.findall('Public nodes:\s*(\d+)\s*', c)[0]
-    print date[i], total_count, public_count 
+    #print date[i], total_count, public_count 
     t = days[i]
     if t == y:
         s1 += int(total_count)
@@ -42,4 +42,6 @@ for i, u in enumerate(urls):
         s2 = int(public_count)
         count = 1
         y = t    
-    time.sleep(0.5)
+    time.sleep(0.25)
+
+print y, int(s1*1.0/count), int(s2*1.0/count)
